@@ -86,9 +86,9 @@ const Login = () => {
         onClick={submitHandler}
         isLoading={values.loading}
       >
-        Login
+        Sign in
       </Button>
-      <Button
+      {/* <Button
         variant="solid"
         colorScheme="red"
         width="100%"
@@ -102,7 +102,7 @@ const Login = () => {
         }}
       >
         Login For Test
-      </Button>
+      </Button> */}
     </VStack>
   );
 };

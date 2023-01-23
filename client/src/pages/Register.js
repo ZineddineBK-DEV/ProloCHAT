@@ -29,7 +29,7 @@ const Register = () => {
   return (
     <>
       <div className="main-container">
-        <img src={MockupImage} alt="mockup" className="mockup" />
+        <img src={MockupImage} alt="mockup" className="mockup"  />
         <Container maxW="xl" d="flex">
           <Box
             d="flex"
@@ -63,9 +63,10 @@ const Register = () => {
                 isFitted
                 variant="soft-rounded"
                 colorScheme=" rgba(67, 43, 255, 0.8);"
+                
               >
                 <TabList mb="1em">
-                  <Tab>Login</Tab>
+                  <Tab>Sign in</Tab>
                   <Tab>Sign Up</Tab>
                 </TabList>
                 <TabPanels>
