@@ -8,8 +8,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "Aakrut Dabhi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZineddineBK-DEV/ProloCHAT.git"
+  },
+
+  "author": "ZineddineBK-DEV",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZineddineBK-DEV/ProloCHAT/issues"
+  },
+  "homepage": "https://github.com/ZineddineBK-DEV/ProloCHAT#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",

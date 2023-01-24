@@ -13,13 +13,13 @@ const register = async (req, res) => {
   const { username, email, password, avatar } = req.body;
 
   if (!username || !email || !password) {
-    throw new BadRequestError("Please Provide All Values");
+    throw new BadRequestError("Please Provide All fields");
   }
 
   const isUserExists = await User.findOne({ email: email });
 
   if (isUserExists) {
-    throw new BadRequestError("User with this Email Already Exists");
+    throw new BadRequestError("User Already Exists");
   }
 
   //hashing password
@@ -57,7 +57,7 @@ const login = async (req, res) => {
   const { username, email, password } = req.body;
 
   if ((!username && !email) || !password) {
-    throw new BadRequestError("Please Provide All the Values");
+    throw new BadRequestError("Please Provide All the fields");
   }
 
   const isUser = await User.findOne({
