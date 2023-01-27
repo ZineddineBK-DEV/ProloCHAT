@@ -6,7 +6,7 @@ const Error = () => {
   return (
     <Wrapper>
       <ContentWrapper>
-        <h1 className="logo">Chatify</h1>
+        <h1 className="logo">ProloCHAT</h1>
         <h2 className="message-1">404</h2>
         <h3 className="message-2">Oooops!</h3>
         <p className="message-3">
@@ -38,7 +38,7 @@ const ContentWrapper = styled.div`
     font-style: normal;
     font-weight: 700;
     font-size: 80px;
-    background: linear-gradient(110.29deg, #2e5cff 11.11%, #973df0 60.96%);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
