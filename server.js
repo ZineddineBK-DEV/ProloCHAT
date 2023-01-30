@@ -6,7 +6,6 @@ dotenv.config();
 import helmet from "helmet";
 import xss from "xss-clean";
 import mongoSanitize from "express-mongo-sanitize";
-import bodyParser from "body-parser";
 import morgan from "morgan";
 
 import "express-async-errors";
