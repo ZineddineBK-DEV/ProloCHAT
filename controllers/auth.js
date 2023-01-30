@@ -61,7 +61,7 @@ const login = async (req, res) => {
   }
 
   const isUser = await User.findOne({
-    $or: [{ email: email }, { username: username }],
+     email: email 
   });
 
   if (!isUser) {

@@ -89,9 +89,9 @@ const Signup = () => {
           label="Image"
           multiple={false}
           name="myFile"
-          p={1.5}
           onDone={({ base64 }) => setValues({ ...values, avatar: base64 })}
         />
+        <b style={{color:"red"}}>Max size is 10MB</b>
       </FormControl>
       <Button
         background="rgba(67, 43, 255, 0.8)"

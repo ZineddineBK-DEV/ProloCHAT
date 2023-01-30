@@ -25,6 +25,7 @@ const ProfileModal = ({ user, children }) => {
           display={{ base: "flex" }}
           icon={<ViewIcon />}
           onClick={onOpen}
+          text="View Profile"
         />
       )}
       <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
