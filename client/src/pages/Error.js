@@ -13,7 +13,7 @@ const Error = () => {
           Sorry, The Page You are looking for doesn’t exists or has been
           removed.{" "}
         </p>
-        <Button to="/landing">Go Back To Home</Button>
+        <Button to="/">Go Back To Home</Button>
       </ContentWrapper>
     </Wrapper>
   );
