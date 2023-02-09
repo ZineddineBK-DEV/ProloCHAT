@@ -1,4 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
+import { EmailIcon }  from "@chakra-ui/icons";
 import {
   Modal,
   ModalOverlay,
@@ -25,12 +26,11 @@ const ProfileModal = ({ user, children }) => {
           display={{ base: "flex" }}
           icon={<ViewIcon />}
           onClick={onOpen}
-          text="View Profile"
         />
       )}
       <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent h="440px">
+        <ModalContent w="700" h="600px">
           <ModalCloseButton />
 
           <ModalBody
@@ -39,22 +39,43 @@ const ProfileModal = ({ user, children }) => {
             alignItems="center"
             justifyContent="center"
           >
-            <Text
-              fontSize="20px"
+           <Text
+              fontSize="30px"
               fontFamily="Poppins"
               display="flex"
               justifyContent="center"
             >
-              {user.username}
+              Profile
             </Text>
             <Image
               borderRadius="full"
-              boxSize="150px"
+              boxSize="50px"
               src={user.avatar}
               alt={user.username}
             />
-            <Text fontSize={{ base: "28px", md: "30px" }} fontFamily="Poppins">
-              Email: {user.email}
+               <Text
+              fontSize="30px"
+              fontFamily="Poppins"
+              display="flex"
+              justifyContent="flex-start"
+            >
+              Bio : {user.bio}
+            </Text>
+             <Text
+              fontSize="30px"
+              fontFamily="Poppins"
+              display="flex"
+              justifyContent="left"
+            >
+              Username : {user.username}
+            </Text>
+            <Text 
+            fontSize={{ base: "28px", md: "30px" }} 
+            fontFamily="Poppins"
+            display="flex"
+            justifyContent="left"
+            >
+              <EmailIcon boxSize={5}/>Email : {user.email}
             </Text>
           </ModalBody>
           <ModalFooter>

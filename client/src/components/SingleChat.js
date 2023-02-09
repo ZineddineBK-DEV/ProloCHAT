@@ -66,7 +66,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
-    socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
+    socket = io("http://localhost:5000");
     socket.emit("setup", user);
     
     socket.on("connected", () => setSocketConnected(true));

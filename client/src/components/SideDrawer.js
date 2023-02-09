@@ -129,7 +129,7 @@ const SideDrawer = () => {
               {notification?.length > 0 ? (
                 <>{toast.info(`New Message`)}</>
               ) : null}
-              <BellIcon fontSize="2xl" m={1} />
+              <b>Notifications</b><BellIcon fontSize="2xl" m={1} />
             </MenuButton>
             <MenuList pl={2}>
               {!notification?.length && "No New Message"}
@@ -149,13 +149,14 @@ const SideDrawer = () => {
             </MenuList>
           </Menu>
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton p={4} as={Button} rightIcon={<ChevronDownIcon />}>
               <Avatar
                 size="sm"
                 cursor="pointer"
-                name={user.name}
                 src={user.avatar}
               />
+               <span><b> { user.username } </b></span>
+              
             </MenuButton>
             <MenuList>
               <MenuItem>My Profile</MenuItem>

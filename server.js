@@ -10,8 +10,7 @@ import morgan from "morgan";
 
 import "express-async-errors";
 
-import { createServer } from "http";
-
+import  http  from "http";
 //socket
 import { Server } from "socket.io";
 
@@ -54,7 +53,7 @@ app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
-const server = createServer(app);
+const server = http.createServer(app);
 
 const start = async () => {
   try {
@@ -72,7 +71,7 @@ start();
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "*",
+    origin: "http://localhost:3000",
   },
 });
 
