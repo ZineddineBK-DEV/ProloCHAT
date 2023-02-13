@@ -3,12 +3,14 @@ import { Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
+import { UilUser,UilSignout } from '@iconscout/react-unicons';
 import {
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   Drawer,
@@ -129,7 +131,7 @@ const SideDrawer = () => {
               {notification?.length > 0 ? (
                 <>{toast.info(`New Message`)}</>
               ) : null}
-              <b>Notifications</b><BellIcon fontSize="2xl" m={1} />
+              <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
             <MenuList pl={2}>
               {!notification?.length && "No New Message"}
@@ -142,27 +144,87 @@ const SideDrawer = () => {
                   }}
                 >
                   {noti?.chat?.isGroupChat
-                    ? `New Message in ${noti?.chat?.chatName} `
-                    : ` New Message from ${getSender(user, noti?.chat?.users)}`}
+                    ? `New Message in ${noti?.chat?.chatName}`
+                    : `New Message from ${getSender(user, noti?.chat?.users)}`}
                 </MenuItem>
               ))}
             </MenuList>
           </Menu>
-          <Menu>
+          <Menu >
             <MenuButton p={4} as={Button} rightIcon={<ChevronDownIcon />}>
               <Avatar
                 size="sm"
                 cursor="pointer"
                 src={user.avatar}
               />
-               <span><b> { user.username } </b></span>
-              
+              <span><b> {user.username} </b></span>
+
             </MenuButton>
-            <MenuList>
-              <MenuItem>My Profile</MenuItem>
-              <ProfileModal user={user} />
+            <MenuList >
+              <Text
+                fontSize="2xl"
+                fontFamily="Poppins"
+                align="center"
+                css={{
+                  background:
+                    "linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);",
+                  textFillColor: "text",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  " -webkit-text-fill-color": "transparent",
+                  fontWeight: 700,
+                }}
+              >Settings</Text>
               <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              <ProfileModal user={user}>
+              
+                <MenuItem 
+                bg={"#f5fcf7"} 
+                h = {"50px"}
+                color = {"#404242"}
+                width={"300px"}
+                border = "1px solid #3e9a9c"
+                borderRadius = {"10px"}
+                fontWeight ={"bold"}
+                _hover ={{
+                  color : '#edf0f0',
+                  bg : '#3e9a9c',
+                }}
+                >
+                  <UilUser 
+                    size="25" 
+                    color="#14403b"
+                    _hover ={{
+                      color : '#edf0f0',
+                    }}
+                    />
+                  See your profile
+                </MenuItem>
+              </ProfileModal>
+              <MenuDivider />
+              
+              <MenuItem 
+                bg={"#f5fcf7"} 
+                color = {"#404242"}
+                width={"300px"}
+                borderRadius = {"10px"}
+                fontWeight ={"bold"}
+                onClick = {logoutHandler}
+                _hover ={{
+                  color : '#edf0f0',
+                  bg : '#3e9a9c',
+                }}
+                >
+                <UilSignout 
+                size="25" 
+                color="#14403b"
+                padding = {"100px"}
+                _hover ={{
+                  color : '#edf0f0',
+                }}
+                />
+                  Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </div>
