@@ -127,11 +127,11 @@ const SideDrawer = () => {
         </Text>
         <div>
           <Menu>
-            <MenuButton p={1}>
-              {notification?.length > 0 ? (
-                <>{toast.info(`New Message`)}</>
-              ) : null}
-              <BellIcon fontSize="2xl" m={1} />
+          <MenuButton >
+              {notification.length >= 1 ? (
+                <b>{notification.length} New messages <BellIcon color={"red"} fontSize="2xl" m={1} /></b>
+              ) : <BellIcon fontSize="2xl" m={1} />}
+              
             </MenuButton>
             <MenuList pl={2}>
               {!notification?.length && "No New Message"}
