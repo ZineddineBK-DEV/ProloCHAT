@@ -55,7 +55,7 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 
-const start = async () => {
+const start = async() => {
   try {
     await connectDB(process.env.MONGO_URI);
     server.listen(port, () =>
@@ -71,7 +71,7 @@ start();
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:5000",
+    origin: "*",
   },
 });
 
