@@ -3,14 +3,14 @@ import { Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
-import { UilUser,UilSignout } from '@iconscout/react-unicons';
+import { UilUser,UilSignout,UilEdit } from '@iconscout/react-unicons';
 import {
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
-  useColorModeValue,
+  
 } from "@chakra-ui/react";
 import {
   Drawer,
@@ -31,6 +31,7 @@ import ChatLoading from "./ChatLoading";
 import UserListItem from "./UserListItem";
 import { useAppContext } from "../context/ChatProvider";
 import ProfileModal from "./ProfileModal";
+import EditProfileModal from "./EditProfileModal";
 import { removeUserFromLocalStorage } from "../utils/localStorage";
 import { getSender } from "../config/chat";
 
@@ -53,7 +54,7 @@ const SideDrawer = () => {
     setChats,
   } = useAppContext();
 
-  const logoutHandler = () => {
+   const logoutHandler = () => {
     removeUserFromLocalStorage("user");
     navigate("/register");
   };
@@ -129,9 +130,11 @@ const SideDrawer = () => {
           <Menu>
           <MenuButton >
               {notification.length >= 1 ? (
-                <b>{notification.length} New messages <BellIcon color={"red"} fontSize="2xl" m={1} /></b>
+                <b>{notification.length} <BellIcon color={"red"} fontSize="2xl" m={1} /></b>
               ) : <BellIcon fontSize="2xl" m={1} />}
-              
+              {/* <Badge badgeContent={notification.length} color="secondary">
+                <MailIcon/>
+              </Badge> */}
             </MenuButton>
             <MenuList pl={2}>
               {!notification?.length && "No New Message"}
@@ -157,7 +160,7 @@ const SideDrawer = () => {
                 cursor="pointer"
                 src={user.avatar}
               />
-              <span><b> {user.username} </b></span>
+              
 
             </MenuButton>
             <MenuList >
@@ -181,9 +184,9 @@ const SideDrawer = () => {
                 <MenuItem 
                 bg={"#f5fcf7"} 
                 h = {"50px"}
+                padding = {"20px"}
                 color = {"#404242"}
                 width={"300px"}
-                border = "1px solid #3e9a9c"
                 borderRadius = {"10px"}
                 fontWeight ={"bold"}
                 _hover ={{
@@ -201,7 +204,34 @@ const SideDrawer = () => {
                   See your profile
                 </MenuItem>
               </ProfileModal>
+
+              <EditProfileModal user={user}>
+              
+                <MenuItem 
+                bg={"#f5fcf7"} 
+                h = {"50px"}
+                padding = {"20px"}
+                color = {"#404242"}
+                width={"300px"}
+                borderRadius = {"10px"}
+                fontWeight ={"bold"}
+                _hover ={{
+                  color : '#edf0f0',
+                  bg : '#3e9a9c',
+                }}
+                >
+                  <UilEdit
+                    size="25" 
+                    color="#14403b"
+                    _hover ={{
+                      color : '#edf0f0',
+                    }}
+                    />
+                  Edit your profile
+                </MenuItem>
+              </EditProfileModal>
               <MenuDivider />
+              
               
               <MenuItem 
                 bg={"#f5fcf7"} 
@@ -218,7 +248,6 @@ const SideDrawer = () => {
                 <UilSignout 
                 size="25" 
                 color="#14403b"
-                padding = {"100px"}
                 _hover ={{
                   color : '#edf0f0',
                 }}

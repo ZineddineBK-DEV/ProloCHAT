@@ -7,6 +7,12 @@ import {
   isSameUser,
 } from "../config/chat";
 import { useAppContext } from "../context/ChatProvider";
+import { format , parseISO  } from 'date-fns'
+import PreviewFileModal from "./PreviewFileModal";
+
+import {
+  Image,
+} from "@chakra-ui/react";
 
 const ScrollableChat = ({ messages }) => {
   const { user } = useAppContext();
@@ -16,9 +22,10 @@ const ScrollableChat = ({ messages }) => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  
 
   useEffect(() => {
-    scrollToBottom();
+      scrollToBottom();
   }, [messages]);
 
   return (
@@ -44,9 +51,19 @@ const ScrollableChat = ({ messages }) => {
               </Tooltip>
             )}
             <span
+            style={{
+             padding: "5px 15px",
+             maxWidth: "75%",
+             marginLeft:"40%",
+             color : "grey",
+            }}
+            >{format((parseISO(m.createdAt)),'dd MMM Y hh:mm a')}
+            </span>
+           
+            <span
               style={{
                 backgroundColor: `${
-                  m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
+                  m.sender._id === user._id ? "#95BDFF" : "#3795BD"
                 }`,
                 marginLeft: isSameSenderMargin(messages, m, i, user._id),
                 marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
@@ -54,9 +71,19 @@ const ScrollableChat = ({ messages }) => {
                 padding: "5px 15px",
                 maxWidth: "75%",
               }}
-            >
-              {m.message}
+            > {m.message} 
+            
+             <PreviewFileModal file = {m}>
+                {m.attachment ?  
+              <Image
+              h={'300px'}
+              w={'300px'}
+              src={m.attachment}
+              borderRadius="10px"
+            /> : null}
+            </PreviewFileModal>
             </span>
+           
           </div>
         ))}
       <div ref={messagesEndRef}></div>

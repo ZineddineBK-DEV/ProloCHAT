@@ -69,6 +69,7 @@ const start = async() => {
 start();
 
 const io = new Server(server, {
+  maxHttpBufferSize: 1e8,
   pingTimeout: 60000,
   cors: {
     origin: "*",
@@ -102,6 +103,10 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("upload", (attachment) => {
+    console.log(`Received file`, attachment);
+    });
+    
   socket.off("setup", () => {
     socket.leave(userData._id);
   });

@@ -40,6 +40,7 @@ const Login = () => {
       addUserToLocalStorage(data);
       setValues({ ...values, loading: false });
       navigate("/");
+      
     } catch (error) {
       toast.error(error.response.data.msg);
       setValues({ ...values, loading: false });
@@ -49,7 +50,7 @@ const Login = () => {
   return (
     <VStack spacing="10px" fontFamily="Poppins">
       <FormControl id="email" isRequired>
-        <FormLabel>email</FormLabel>
+        <FormLabel>Email</FormLabel>
         <Input
           value={values.email}
           type="email"
@@ -58,7 +59,7 @@ const Login = () => {
         />
       </FormControl>
       <FormControl id="password" isRequired>
-        <FormLabel>password</FormLabel>
+        <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
             value={values.password}

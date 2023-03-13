@@ -17,10 +17,10 @@ const MyChats = ({ fetchAgain }) => {
 
   const fetchChats = async () => {
     try {
-      const { data } = await api.get("/api/v1/chat");
-
+      const { data } = await api.get("/api/v1/chat")
       setChats(data);
-    } catch (error) {
+      }
+     catch (error) {
       toast.error(error);
     }
   };

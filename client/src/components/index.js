@@ -6,4 +6,5 @@ export { default as ChatBox } from "./ChatBox";
 export { default as ChatLoading } from "./ChatLoading";
 export { default as UserListItem } from "./UserListItem";
 export { default as ProfileModal } from "./ProfileModal";
+export { default as EditProfileModal } from "./EditProfileModal";
 export { default as UserBadgeItem } from "./UserBadgeItem";
