@@ -11,7 +11,7 @@ const messageSchema = new mongoose.Schema(
       trim: true,
     },
     attachment: {
-      type: String,
+      type: Array,
     },
     chat: {
       type: mongoose.Types.ObjectId,

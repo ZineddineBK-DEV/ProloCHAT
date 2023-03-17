@@ -20,7 +20,7 @@ const sendMessage = async (req, res) => {
     };
 
     m = await Message.create(newMessage);
-  } else if (message) {
+  } else if (message && !attachment) {
     let newMessage = {
       sender: req.user.id,
       message: message,
@@ -28,7 +28,7 @@ const sendMessage = async (req, res) => {
     };
 
     m = await Message.create(newMessage);
-  } else if (attachment) {
+  } else if (!message && attachment) {
     let newMessage = {
       sender: req.user.id,
       attachment: attachment,

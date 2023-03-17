@@ -6,6 +6,7 @@ import {
   Input,
   Spinner,
   Text,
+  Image
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -27,7 +28,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState(" ");
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -48,8 +49,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
  
   const sendMessage = async (e) => {
-    const {attachment} = attachmentData;
-    if (e.key === "Enter"){
+    const attachment = attachmentData;
+    if (e.key === "Enter" && (newMessage !== " " || attachment)){
       socket.emit("stop-typing", selectedChat._id);
       try {
         const { data } = await api.post(`/api/v1/message/`, {
@@ -57,7 +58,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           attachment, // base64-encoded file data
           chatId: selectedChat._id,
         });
-        setNewMessage("");
+        setNewMessage(" ");
         setAttachmentData (""); // clear attachment data
         socket.emit("new-message", data);
         socket.emit("upload" , data.attachment);
@@ -179,9 +180,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <ScrollableChat messages={messages} />
               </div>
             )}
-            <FormControl onKeyDown={sendMessage} h="15%" isRequired mt={3}>
+            <FormControl onKeyDown={sendMessage}  mt={3}>
               {isTyping ? <div>Typing ...</div> : <></>}
               <Input
+                _hover={{
+                  border:"0.5px solid #0E8388"
+                }}
                 variant="filled"
                 bg="#E0E0E0"
                 placeholder="Enter a message..."
@@ -191,11 +195,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <FileBase
                 type="file"
                 label="Image"
-                multiple={false}
+                multiple={true}
                 name="myFile"
-                value={attachmentData}
-                onDone={({ base64 }) => setAttachmentData({ attachmentData, attachment: base64 })}
-                />
+                onDone={( attachment ) => setAttachmentData( ...attachmentData, attachment )}/>
             </FormControl>
           </Box>
         </>
