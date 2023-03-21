@@ -180,12 +180,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <ScrollableChat messages={messages} />
               </div>
             )}
-            <FormControl onKeyDown={sendMessage}  mt={3}>
+            <FormControl 
+            onKeyDown={sendMessage}  
+            mt={3}
+            h = {'51%'}
+            >
               {isTyping ? <div>Typing ...</div> : <></>}
               <Input
                 _hover={{
                   border:"0.5px solid #0E8388"
                 }}
+                h={"30px"}
                 variant="filled"
                 bg="#E0E0E0"
                 placeholder="Enter a message..."

@@ -16,12 +16,9 @@ import {
     Button,
     useDisclosure,
     IconButton,
-    useColorModeValue,
     Center,
-    MenuDivider,
     Text,
     Divider,
-
 } from "@chakra-ui/react";
 
 const EditProfileModal = ({ user, children }) => {
@@ -129,7 +126,7 @@ const EditProfileModal = ({ user, children }) => {
                 <ModalContent backgroundColor="#ffF">
                     <ModalHeader>
                         <Center>
-                            <Text fontSize="35px" ><b>- Edit your infos -</b></Text>
+                            <Text fontSize="30px" ><b>- Edit your infos -</b></Text>
                         </Center>
                         <Divider />
                     </ModalHeader>
@@ -201,7 +198,7 @@ const EditProfileModal = ({ user, children }) => {
                                     name="myFile"
                                     onDone={({ base64 }) => setValues({ ...values, avatar: base64 })}
                                 />
-                                <b style={{ color: "red" }}>Max size is 10MB</b>
+                                
                                 <Button 
                                     margin={"10px"}
                                     colorScheme='teal' 
@@ -213,13 +210,15 @@ const EditProfileModal = ({ user, children }) => {
                     <ModalFooter>
                         <Button
                             w={'400px'}
+                            border={"0.5px solid #0E8388"}
                             mt={4}
-                            bg={useColorModeValue('#151f21', 'gray.900')}
-                            color={'white'}
+                            color={'#0E8388'}
                             rounded={'md'}
                             _hover={{
                                 transform: 'translateY(-2px)',
                                 boxShadow: 'lg',
+                                bgColor: '#0E8388',
+                                color: "whitesmoke"
                             }}
                             onClick={confirmSubmit}
                         >
@@ -231,14 +230,16 @@ const EditProfileModal = ({ user, children }) => {
                         </Center>
                         <Button
                             w={'400px'}
+                            border={"0.5px solid #EA5455"}
                             mt={4}
-                            bg={useColorModeValue('#151f21', 'gray.900')}
-                            color={'white'}
+                            bgColor={"whitesmoke"}                          
+                            color={'#EA5455'}
                             rounded={'md'}
-
                             _hover={{
                                 transform: 'translateY(-2px)',
                                 boxShadow: 'lg',
+                                bgColor: '#EA5455',
+                                color: "whitesmoke"
                             }}
                             onClick={onClose}
                         >
