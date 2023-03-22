@@ -6,7 +6,6 @@ import {
   Input,
   Spinner,
   Text,
-  Image
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -73,7 +72,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
  
   useEffect(() => {
-    socket = io("http://localhost:5000");
+    socket = io("http://chat.domgp.local:5000");
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));

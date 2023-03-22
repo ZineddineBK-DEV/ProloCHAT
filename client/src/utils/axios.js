@@ -1,9 +1,8 @@
 import axios from "axios";
-import { Navigate } from "react-router-dom";
-import { getUserFromLocalStorage,removeUserFromLocalStorage } from "./localStorage";
+import { getUserFromLocalStorage } from "./localStorage";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "http://chat.domgp.local:5000",
 });
 api.interceptors.request.use((config) => {
   const user = getUserFromLocalStorage();

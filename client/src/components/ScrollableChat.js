@@ -50,9 +50,9 @@ const ScrollableChat = ({ messages }) => {
                 />
               </Tooltip>
             )}
-            
-            <span
+            {/* <span
               style={{
+                align:"center",
                 padding: "5px 15px",
                 maxWidth: "75%",
                 marginLeft: "40%",
@@ -61,7 +61,7 @@ const ScrollableChat = ({ messages }) => {
               }}
             >{format((parseISO(m.createdAt)), 'dd MMM Y hh:mm a')}
             </span>
-            
+                         */}
             {m.message ?
 
               <div
@@ -109,6 +109,7 @@ const ScrollableChat = ({ messages }) => {
                 padding: "5px 5px",
                 maxWidth: "35%",
               }}>
+                
                 {m.attachment.map((file, x) => (
                   <PreviewFileModal attach={file} key={x}>
                      {file.type.includes("image") ?
@@ -120,14 +121,18 @@ const ScrollableChat = ({ messages }) => {
                     />:
                     <center>
                     <b>
-                      Click to download file 
-                      <DownloadIcon marginLeft={"10px"}/>
+                      {file.name}                      
                       </b>
+                      <DownloadIcon 
+                        _hover={{
+                          color:"whitesmoke",
+                          transform: 'translateY(-3px)',
+                          boxShadow: 'lg'
+                          }} marginLeft={"10px"}/>
                     </center> 
                     }
                   </PreviewFileModal>
                 ))}
-
               </div>
             }
           </div>

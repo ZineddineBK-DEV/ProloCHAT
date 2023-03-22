@@ -32,7 +32,7 @@ const PreviewFileModal = ({ attach, children }) => {
       <Modal size={"xl"} onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
         <ModalContent >
-          <ModalCloseButton color={"whitesmoke"} bgColor={"#0E8388"} _hover={{ color: "#0E8388", bgColor: "whitesmoke" }} />
+          <ModalCloseButton color={"#0E8388"} bgColor={"whitesmoke"} border={"0.5px solid #0E8388"} _hover={{ color: "whitesmoke", bgColor: "#0E8388" }} />
           
             <Center className='container' >
               <div
