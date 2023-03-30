@@ -10,8 +10,8 @@ import morgan from "morgan";
 
 import "express-async-errors";
 
-import  https  from "https";
-import fs from 'fs';
+import  http  from "http";
+
 
 //socket
 import { Server } from "socket.io";
@@ -37,12 +37,7 @@ if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
 
-
-
-
-
-
-app.use(express.json({ extended : true,limit: '10mb' }));
+app.use(express.json({ extended : true,limit: '500mb' }));
 app.use(cors());
 app.use(helmet());
 app.use(xss());
@@ -62,14 +57,9 @@ app.use(errorHandlerMiddleware);
  
 
 const port = process.env.PORT || 5000;
-const server = https.createServer({
-  key: fs.readFileSync("./cert/decryctedChat.key"),
-  cert: fs.readFileSync("./cert/chatcert.pem"),
-  },
-  app
-  );
+const server = http.createServer(app);
 
-const start = async () => {
+const start = async() => {
   try {
     await connectDB(process.env.MONGO_URI);
     server.listen(port, () =>
@@ -83,9 +73,10 @@ const start = async () => {
 start();
 
 const io = new Server(server, {
+  maxHttpBufferSize: 1e8,
   pingTimeout: 60000,
   cors: {
-    origin: "https://172.16.99.4:3002",
+    origin: "*",
   },
 });
 
@@ -116,6 +107,10 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("upload", (attachment) => {
+    console.log(`Received file`, attachment);
+    });
+    
   socket.off("setup", () => {
     socket.leave(userData._id);
   });

@@ -17,14 +17,14 @@ const Signup = () => {
 
   const [values, setValues] = useState({
     username: "",
-    fullName: "",
     email: "",
     password: "",
     avatar: "",
+    
   });
 
   const submitHandler = async () => {
-    const { email, password, username, avatar } = values;
+    const { email, password, username, avatar, bio} = values;
 
     if (!username || !email || !password) {
       toast.error("Please Provide All The Fields");
@@ -38,6 +38,7 @@ const Signup = () => {
         email,
         password,
         avatar,
+        bio
       });
 
       toast.success(`Hi There! ${data.username} `);
@@ -52,7 +53,7 @@ const Signup = () => {
   return (
     <VStack spacing="5px" fontFamily="Poppins">
       <FormControl id="first-name" isRequired>
-        <FormLabel fontFamily="Poppins">username</FormLabel>
+        <FormLabel fontFamily="Poppins">Username</FormLabel>
         <Input
           fontFamily="Poppins"
           placeholder="username"
@@ -60,7 +61,7 @@ const Signup = () => {
         />
       </FormControl>
       <FormControl id="email" isRequired>
-        <FormLabel>email</FormLabel>
+        <FormLabel>Email</FormLabel>
         <Input
           type="email"
           placeholder="email"
@@ -68,7 +69,7 @@ const Signup = () => {
         />
       </FormControl>
       <FormControl id="password" isRequired>
-        <FormLabel>password</FormLabel>
+        <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
             type={show ? "text" : "password"}

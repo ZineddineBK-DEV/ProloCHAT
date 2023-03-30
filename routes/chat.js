@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+import authenticateUser from "../middleware/auth.js";
 
 import {
   getChat,
@@ -10,10 +11,10 @@ import {
   addUserToGroup,
 } from "../controllers/chat.js";
 
-router.route("/").post(getChat).get(getChats);
-router.route("/createGroup").post(createGroup);
-router.route("/renameGroup").patch(renameGroup);
-router.route("/removeFromGroup").patch(removeFromGroup);
-router.route("/addUserToGroup").patch(addUserToGroup);
+router.route("/").post(getChat).get(authenticateUser,getChats);
+router.route("/createGroup").post(authenticateUser,createGroup);
+router.route("/renameGroup").patch(authenticateUser,renameGroup);
+router.route("/removeFromGroup").patch(authenticateUser,removeFromGroup);
+router.route("/addUserToGroup").patch(authenticateUser,addUserToGroup);
 
 export default router;

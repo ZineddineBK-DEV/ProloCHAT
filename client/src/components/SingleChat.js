@@ -15,30 +15,29 @@ import api from "../utils/axios";
 import ProfileModal from "./ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 import UpdateGroupChatModel from "./UpdateGroupChatModel";
+import FileBase from "react-file-base64";
+
 
 import io from "socket.io-client";
 
 let socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { selectedChat, setSelectedChat, user, notification, setNotification } =
-    useAppContext();
-
+  const { selectedChat, setSelectedChat, user, notification, setNotification } = useAppContext();
+  
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState(" ");
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-
+  const [attachmentData, setAttachmentData] = useState("");
+  
   const fetchMessages = async () => {
     if (!selectedChat) return;
-
     try {
       setLoading(true);
-
       const { data } = await api.get(`/api/v1/message/${selectedChat._id}`);
-
       setMessages(data);
       setLoading(false);
       socket.emit("join-chat", selectedChat._id);
@@ -47,37 +46,41 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
+ 
   const sendMessage = async (e) => {
-    if (e.key === "Enter" && newMessage) {
+    const attachment = attachmentData;
+    if (e.key === "Enter" && (newMessage !== " " || attachment)){
       socket.emit("stop-typing", selectedChat._id);
       try {
         const { data } = await api.post(`/api/v1/message/`, {
-          message: newMessage,
+          message : newMessage,
+          attachment, // base64-encoded file data
           chatId: selectedChat._id,
         });
-
-        setNewMessage("");
+        setNewMessage(" ");
+        setAttachmentData (""); // clear attachment data
         socket.emit("new-message", data);
+        socket.emit("upload" , data.attachment);
         setMessages([...messages, data]);
+      
+
       } catch (error) {
         toast.error(error);
       }
+    
     }
   };
-
+ 
   useEffect(() => {
-    socket = io("https://172.16.99.4:5000");
+    socket = io("http://chat.domgp.local:5000");
     socket.emit("setup", user);
-    
     socket.on("connected", () => setSocketConnected(true));
-
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop-typing", () => setIsTyping(false));
   }, []);
 
   useEffect(() => {
     fetchMessages();
-
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
@@ -100,9 +103,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
-
     if (!socketConnected) return;
-
     if (!typing) {
       setTyping(true);
       socket.emit("typing", selectedChat._id);
@@ -178,15 +179,29 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <ScrollableChat messages={messages} />
               </div>
             )}
-            <FormControl onKeyDown={sendMessage} h="15%" isRequired mt={3}>
+            <FormControl 
+            onKeyDown={sendMessage}  
+            mt={3}
+            h = {'51%'}
+            >
               {isTyping ? <div>Typing ...</div> : <></>}
               <Input
+                _hover={{
+                  border:"0.5px solid #0E8388"
+                }}
+                h={"30px"}
                 variant="filled"
                 bg="#E0E0E0"
-                placeholder="Enter a message.."
+                placeholder="Enter a message..."
                 value={newMessage}
                 onChange={typingHandler}
               />
+              <FileBase
+                type="file"
+                label="Image"
+                multiple={true}
+                name="myFile"
+                onDone={( attachment ) => setAttachmentData( ...attachmentData, attachment )}/>
             </FormControl>
           </Box>
         </>

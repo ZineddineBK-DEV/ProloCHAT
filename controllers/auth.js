@@ -10,7 +10,7 @@ import {
 } from "../errors/index.js";
 
 const register = async (req, res) => {
-  const { username, email, password, avatar } = req.body;
+  const { username, email, password, avatar, bio } = req.body;
 
   if (!username || !email || !password) {
     throw new BadRequestError("Please Provide All fields");
@@ -30,6 +30,7 @@ const register = async (req, res) => {
     email,
     password: hashPassword,
     avatar,
+    bio
   });
 
   const token = jwt.sign(
@@ -48,7 +49,9 @@ const register = async (req, res) => {
     _id: user._id,
     username: user.username,
     email: user.email,
+    password : user.password,
     avatar: user.avatar,
+    bio : user.bio,
     token,
   });
 };
@@ -93,14 +96,15 @@ const login = async (req, res) => {
     _id: isUser._id,
     username: isUser.username,
     email: isUser.email,
+    password : isUser.password,
     avatar: isUser.avatar,
+    bio : isUser.bio,
     token,
   });
 };
 
 const searchUser = async (req, res) => {
   const { search } = req.query;
-
   const user = await User.find({
     username: { $regex: search, $options: "i" },
   }).select("username avatar _id email bio");
@@ -108,4 +112,102 @@ const searchUser = async (req, res) => {
   res.status(StatusCodes.OK).json(user);
 };
 
-export { register, login, searchUser };
+const getUserInfo = async (req, res) => {
+  
+  try{
+  const user = await User.findById(req.user.id)
+  res.status(StatusCodes.OK).json(user);
+  }catch (err) {
+    console.log(err)
+    res.status(500).json({error:err});
+}
+};
+
+const updateUserName = async(req,res)=>{
+  try{
+    
+    const user = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+            username : req.body.username
+        },
+        {
+            new:true
+        }
+        )
+      res.status(200).json(user);
+}catch (err) {
+    console.log(err);
+    res.status(500).json({error:err});
+}
+}
+
+const updateUserBio = async(req,res)=>{
+  try{
+    
+    const user = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+            bio : req.body.bio
+        },
+        {
+            new:true
+        }
+        )
+      res.status(200).json(user);
+}catch (err) {
+    console.log(err);
+    res.status(500).json({error:err});
+}
+}
+
+const updateUserAvatar = async(req,res)=>{
+  try{
+    
+    const user = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+            avatar : req.body.avatar
+        },
+        {
+            new:true
+        }
+        )
+      res.status(200).json(user);
+}catch (err) {
+    console.log(err);
+    res.status(500).json({error:err});
+}
+}
+
+const updateUserPassword = async(req,res)=>{
+  try{
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+
+    const user = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+            password : hashPassword
+        },
+        {
+            new:true
+        }
+        )
+      res.status(200).json(user);
+}catch (err) {
+    console.log(err);
+    res.status(500).json({error:err});
+}
+}
+
+
+export { 
+  register, 
+  login, 
+  searchUser,
+  getUserInfo,
+  updateUserName,
+  updateUserBio ,
+  updateUserAvatar,
+  updateUserPassword 
+};
