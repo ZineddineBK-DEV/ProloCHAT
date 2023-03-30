@@ -12,7 +12,7 @@ import {
 import { Login, Signup } from "../components";
 import { useNavigate } from "react-router-dom";
 import { getUserFromLocalStorage } from "../utils/localStorage";
-import MockupImage from "../assets/img/background.png";
+import MockupImage from "../assets/img/background.jpg";
 import "./register.css";
 
 const Register = () => {

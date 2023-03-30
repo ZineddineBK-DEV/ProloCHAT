@@ -10,7 +10,9 @@ import morgan from "morgan";
 
 import "express-async-errors";
 
-import  http  from "http";
+import  https  from "https";
+import fs from 'fs';
+
 //socket
 import { Server } from "socket.io";
 
@@ -35,6 +37,11 @@ if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
 
+
+
+
+
+
 app.use(express.json({ extended : true,limit: '10mb' }));
 app.use(cors());
 app.use(helmet());
@@ -52,8 +59,15 @@ app.use("/api/v1/message", authenticateUser, messageRoute);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
+ 
+
 const port = process.env.PORT || 5000;
-const server = http.createServer(app);
+const server = https.createServer({
+  key: fs.readFileSync("./cert/decryctedChat.key"),
+  cert: fs.readFileSync("./cert/chatcert.pem"),
+  },
+  app
+  );
 
 const start = async () => {
   try {
@@ -71,7 +85,7 @@ start();
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://172.16.99.4:3002",
   },
 });
 
